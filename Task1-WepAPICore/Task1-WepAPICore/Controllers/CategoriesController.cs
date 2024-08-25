@@ -15,53 +15,53 @@ namespace Task1_WepAPICore.Controllers
             _myDbContext = myDbContext;
         }
 
-        //[HttpGet]
-        //public IActionResult getAllCategories()
-        //{
-
-        //    var categories = _myDbContext.Categories.ToList();
-        //    return Ok(categories);
-        //}
-
-        //[HttpGet("{id}")]
-        //public IActionResult GetCategoryById(int id)
-        //{
-
-        //    var CategoryById = _myDbContext.Categories.Where(c => c.CategoryId == id).FirstOrDefault();
-        //    return Ok(CategoryById);
-        //}
-
-
-        //[HttpGet("{name:alpha}")]
-        //public IActionResult GetCategoryByName(string name)
-        //{
-
-        //    var CategoruByName = _myDbContext.Categories.Where(c => c.CategoryName == name).FirstOrDefault();
-        //    return Ok(CategoruByName);
-
-        //}
-
-
-        [HttpDelete("{id1}")]
-        public IActionResult DeleteCategoryById(int id1)
+        [HttpGet]
+        public IActionResult getAllCategories()
         {
-            var Deleteitem = _myDbContext.Categories.Include(x => x.Products).FirstOrDefault(c => c.CategoryId == id1);
-            if (Deleteitem == null)
-            {
-                return NotFound();
 
-            }
-
-            if (Deleteitem.Products.Any())
-            {
-                return BadRequest(" يوجد منتجات داخل هذا الصنف");
-            }
-
-            _myDbContext.Categories.Remove(Deleteitem);
-            _myDbContext.SaveChanges();
-
-            return NoContent();
+            var categories = _myDbContext.Categories.ToList();
+            return Ok(categories);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetCategoryById(int id)
+        {
+
+            var CategoryById = _myDbContext.Categories.Where(c => c.CategoryId == id).FirstOrDefault();
+            return Ok(CategoryById);
+        }
+
+
+        [HttpGet("{name:alpha}")]
+        public IActionResult GetCategoryByName(string name)
+        {
+
+            var CategoruByName = _myDbContext.Categories.Where(c => c.CategoryName == name).FirstOrDefault();
+            return Ok(CategoruByName);
+
+        }
+
+
+        //[HttpDelete("{id1}")]
+        //public IActionResult DeleteCategoryById(int id1)
+        //{
+        //    var Deleteitem = _myDbContext.Categories.Include(x => x.Products).FirstOrDefault(c => c.CategoryId == id1);
+        //    if (Deleteitem == null)
+        //    {
+        //        return NotFound();
+
+        //    }
+
+        //    if (Deleteitem.Products.Any())
+        //    {
+        //        return BadRequest(" يوجد منتجات داخل هذا الصنف");
+        //    }
+
+        //    _myDbContext.Categories.Remove(Deleteitem);
+        //    _myDbContext.SaveChanges();
+
+        //    return NoContent();
+        //}
 
 
 

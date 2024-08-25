@@ -4529,11 +4529,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Orange\\Desktop\\Web API -Task2\\Web API -Task2\\Web API -Task2.csproj",
+      "projectUniqueName": "C:\\Users\\Orange\\Desktop\\web API Core-tasks\\Web-API-Core\\Web API -Task2\\Web API -Task2\\Web API -Task2.csproj",
       "projectName": "Web API -Task2",
-      "projectPath": "C:\\Users\\Orange\\Desktop\\Web API -Task2\\Web API -Task2\\Web API -Task2.csproj",
+      "projectPath": "C:\\Users\\Orange\\Desktop\\web API Core-tasks\\Web-API-Core\\Web API -Task2\\Web API -Task2\\Web API -Task2.csproj",
       "packagesPath": "C:\\Users\\Orange\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Orange\\Desktop\\Web API -Task2\\Web API -Task2\\obj\\",
+      "outputPath": "C:\\Users\\Orange\\Desktop\\web API Core-tasks\\Web-API-Core\\Web API -Task2\\Web API -Task2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

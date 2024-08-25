@@ -21,16 +21,17 @@ namespace Task1_WepAPICore.Controllers
             var products = _myDbContext.Products.ToList();
             return Ok(products);
         }
-        //task1
-        //[HttpGet("{id}")]
-        //public IActionResult GetProductById(int id)
-        //{
 
-        //    var productById = _myDbContext.Products
-        //                                      .Include(p => p.Category)  
-        //                                      .FirstOrDefault(c => c.ProductId == id);
-        //    return Ok(productById);
-        //}
+        //task1
+        [HttpGet("{id}")]
+        public IActionResult GetProductById(int id)
+        {
+
+            var productById = _myDbContext.Products
+                                              .Include(p => p.Category)
+                                              .FirstOrDefault(c => c.ProductId == id);
+            return Ok(productById);
+        }
 
 
 
@@ -40,18 +41,12 @@ namespace Task1_WepAPICore.Controllers
         //{
 
         //    var productById = _myDbContext.Products.Where(w=>w.CategoryId == id1 &&  w.Price >Price ).Count();
-                                            
-                                            
+
+
         //    return Ok(productById);
         //}
 
     }
-
-
-
-
-
-
 
 }
 
