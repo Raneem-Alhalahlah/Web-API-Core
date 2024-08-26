@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Web_API__Task2.DTOs;
 using Web_API__Task2.Models;
 
 namespace Web_API__Task2.Controllers
@@ -99,5 +101,79 @@ namespace Web_API__Task2.Controllers
 
             return NoContent();
         }
-    }
+
+
+        //to post data from swagger
+        [HttpPost]
+        public IActionResult AddProduct([FromForm] ProductRequest productOTD) {
+           
+            if (productOTD == null)
+            {
+            return BadRequest("not valid");
+            }
+
+            var y = new Product
+            {
+                ProductName = productOTD.ProductName,
+                Description = productOTD.Description,
+                Price = productOTD.Price,
+                ProductImage = productOTD.ProductImage,
+                CategoryId = productOTD.CategoryId
+
+
+
+            };
+            _myDbContext.Products.Add(y);
+            _myDbContext.SaveChanges();
+
+            return Ok("Category added successfully!"); 
+        
+        
+        }
+
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateProduct (int id, [FromForm] ProductRequest productOTD)
+        {
+          
+            
+            var existingProduct= _myDbContext.Products.FirstOrDefault(x => x.ProductId == id);
+
+            if (existingProduct == null)
+            {
+
+                return NotFound();
+            }
+
+
+            existingProduct.ProductName = productOTD.ProductName;
+            existingProduct.Description = productOTD.Description;
+            existingProduct.Price = productOTD.Price;
+            existingProduct.ProductImage = productOTD.ProductImage;
+            existingProduct.CategoryId = productOTD.CategoryId;
+
+
+
+            _myDbContext.Update(existingProduct);
+            _myDbContext.SaveChanges();
+            return Ok();
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+      }
 }

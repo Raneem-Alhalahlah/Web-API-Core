@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Web_API__Task2.DTOs;
 using Web_API__Task2.Models;
 
 namespace Web_API__Task2.Controllers
@@ -100,6 +101,49 @@ namespace Web_API__Task2.Controllers
 
 
 
+        //to post data from swagger
+        [HttpPost]
+        public IActionResult AddCategory([FromForm] CategoryRequest categoryDTO)
+        {
+            if (categoryDTO == null)
+            {
+                return BadRequest("Invalid data.");
+            }
 
+
+            var x = new Category
+            {
+
+                CategoryName = categoryDTO.CategoryName,
+               CategoryImage = categoryDTO.CategoryImage
+
+            };
+            _myDbContext.Categories.Add(x);
+            _myDbContext.SaveChanges();
+
+            return Ok("Category added successfully!");
+        }
+
+
+
+        [HttpPut("{id}")]
+        public IActionResult updatCategory(int id, [FromForm] CategoryRequest categoryDTO)
+
+        {
+            var existingProduct = _myDbContext.Categories.FirstOrDefault(x => x.CategoryId== id);
+
+            if (existingProduct == null)
+            {  return NotFound(); }
+
+            existingProduct.CategoryName = categoryDTO.CategoryName;
+            existingProduct.CategoryImage = categoryDTO.CategoryImage;   
+
+
+            _myDbContext.Update(existingProduct);
+            _myDbContext.SaveChanges();
+
+            return Ok(); 
+
+        }
     }
 }

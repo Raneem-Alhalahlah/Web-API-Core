@@ -57,6 +57,13 @@ namespace Web_API__Task2.Controllers
             return Ok(products);
         }
 
+        [HttpGet]
+        [Route("api/Products/OrderByPriceDesc")]
+        public IActionResult GetProductsOrderedByPriceDesc()
+        {
+            var products = _myDbContext.Products.OrderByDescending(p => p.Price).ToList();
+            return Ok(products);
+        }
 
 
         [HttpGet("GetProductByName")]
