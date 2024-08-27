@@ -105,6 +105,16 @@ namespace Web_API__Task2.Controllers
         [HttpPost]
         public IActionResult AddCategory([FromForm] CategoryRequest categoryDTO)
         {
+            var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
+            if (!Directory.Exists(uploadsFolderPath))
+            {
+                Directory.CreateDirectory(uploadsFolderPath);
+            }
+            var filePath = Path.Combine(uploadsFolderPath, categoryDTO.CategoryImage.FileName);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                categoryDTO.CategoryImage.CopyToAsync(stream);
+            }
             if (categoryDTO == null)
             {
                 return BadRequest("Invalid data.");
@@ -115,7 +125,7 @@ namespace Web_API__Task2.Controllers
             {
 
                 CategoryName = categoryDTO.CategoryName,
-               CategoryImage = categoryDTO.CategoryImage
+               CategoryImage = categoryDTO.CategoryImage.FileName
 
             };
             _myDbContext.Categories.Add(x);
@@ -130,13 +140,26 @@ namespace Web_API__Task2.Controllers
         public IActionResult updatCategory(int id, [FromForm] CategoryRequest categoryDTO)
 
         {
+
+            var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
+            if (!Directory.Exists(uploadsFolderPath))
+            {
+                Directory.CreateDirectory(uploadsFolderPath);
+            }
+            var filePath = Path.Combine(uploadsFolderPath, categoryDTO.CategoryImage.FileName);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                 categoryDTO.CategoryImage.CopyToAsync(stream);
+            }
+
+
             var existingProduct = _myDbContext.Categories.FirstOrDefault(x => x.CategoryId== id);
 
             if (existingProduct == null)
             {  return NotFound(); }
 
             existingProduct.CategoryName = categoryDTO.CategoryName;
-            existingProduct.CategoryImage = categoryDTO.CategoryImage;   
+            existingProduct.CategoryImage = categoryDTO.CategoryImage.FileName;   
 
 
             _myDbContext.Update(existingProduct);
@@ -145,5 +168,44 @@ namespace Web_API__Task2.Controllers
             return Ok(); 
 
         }
+
+
+
+
+        //بتقبل سترنغ والنتيجة مجموع او طرح رقمين
+        [HttpGet]
+        [Route("api/calculateSum")]
+        public IActionResult CalculateSum(string expression)
+        {
+
+
+            var number = expression.Split(' '); 
+            int num1 =int.Parse(number[0]);
+            var oparation = Convert.ToChar(number[1]);
+            int num2 =int.Parse(number[2]);
+
+            var result = 0;
+
+            if (oparation  == '+')
+            {
+                result = num1 + num2;
+            }
+            if(oparation == '-')
+            {
+                result = num1 - num2;
+            }
+            if (oparation == '*')
+            {
+                result = num1 * num2;
+            }
+
+            return Ok(result);
+
+          
+        }
+
+
+
+
     }
 }
