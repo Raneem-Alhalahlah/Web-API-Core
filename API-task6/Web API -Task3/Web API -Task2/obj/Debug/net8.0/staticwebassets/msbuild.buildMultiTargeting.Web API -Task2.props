@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Web API -Task2.props" />
+</Project>

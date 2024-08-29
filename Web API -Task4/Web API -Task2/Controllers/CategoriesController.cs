@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Eventing.Reader;
 using Web_API__Task2.DTOs;
 using Web_API__Task2.Models;
 
@@ -207,5 +208,37 @@ namespace Web_API__Task2.Controllers
 
 
 
+        [HttpGet("{x:int},{y:int}")]
+        public IActionResult CheckNumber(int x, int y)
+        {
+
+
+
+            if (x == 30 || y == 30 || x + y == 30)
+            {
+                return Ok(true);
+            }
+
+            else
+            {
+                return Ok(false);
+
+            }
+
+        }
+
+
+        [HttpGet("{num:int}")]
+        public IActionResult towNumber(int num) {
+
+            if (num % 3 == 0 || num % 7 == 0)
+            {
+                return Ok(true);
+            }
+
+            else
+                return Ok(false);
+
+        }
     }
-}
+  }

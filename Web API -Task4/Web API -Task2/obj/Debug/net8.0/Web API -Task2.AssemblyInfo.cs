@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Web API -Task2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4fa72846581a0eaf1b958b77ccdc50a02184b911")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3e7461de90decd7865da7f9c7c417b53f317eb6d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Web API -Task2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Web API -Task2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
