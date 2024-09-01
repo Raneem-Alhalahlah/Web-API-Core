@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using Web_API__Task2.Models;
 
 namespace Web_API__Task2.Controllers
@@ -23,27 +24,27 @@ namespace Web_API__Task2.Controllers
             return Ok(products);
         }
 
-       
-    
-    [HttpGet("GetProductById/")]
-    public IActionResult GetProductById([FromQuery]  int id)
-    {
+
+
+        [HttpGet("GetProductById/")]
+        public IActionResult GetProductById([FromQuery] int id)
+        {
             if (id <= 0)
             {
                 return BadRequest();
             }
 
             var product = _myDbContext.Products.FirstOrDefault(p => p.ProductId == id);
-        if (product == null)
-        {
-            return NotFound();
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(product);
         }
 
-        return Ok(product);
-    }
-
         [HttpGet("GetProductByCategoryId/{id:int}")]
-        public IActionResult GetProductByCategoryId( int id)
+        public IActionResult GetProductByCategoryId(int id)
         {
             if (id <= 0)
             {
@@ -52,7 +53,7 @@ namespace Web_API__Task2.Controllers
 
             var products = _myDbContext.Products.Where(p => p.CategoryId == id).ToList();
 
-           
+
 
             return Ok(products);
         }
@@ -87,7 +88,7 @@ namespace Web_API__Task2.Controllers
 
 
         [HttpDelete("delete/{id:int}")]
-        public IActionResult DeleteProduct([FromQuery]  int id)
+        public IActionResult DeleteProduct([FromQuery] int id)
         {
 
             if (id <= 0)
@@ -106,5 +107,23 @@ namespace Web_API__Task2.Controllers
 
             return NoContent();
         }
+
+
+
+        //problem solving
+        [HttpGet("last5product")]
+        public IActionResult last5product()
+        {
+
+            var product = _myDbContext.Products.OrderBy(p => p.ProductName).ToList().TakeLast(5);//method1
+            //var product = _myDbContext.Products.OrderBy(p => p.ProductName).Reverse().Take(5).Reverse().ToList();//method2
+            //var product = _myDbContext.Products.OrderByDescending(p => p.ProductName).Take(5).OrderBy(p => p.ProductName).ToList();//method3
+
+
+            return Ok(product);
+        }
+
+
+
     }
 }

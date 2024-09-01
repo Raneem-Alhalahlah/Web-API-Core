@@ -9,8 +9,8 @@ async function getAllprpduct() {
     cards.innerHTML += ` <tr>
               <td>${product.cartId}</td>
               <td>${product.product.productName}</td>
-              <td> <input type="number" id="cartidQuantity" placeholder="${product.quantity}"></td>
-              <td><button onclick="editQuantity(${product.cartItemId})"value="Edit">Edit</td>
+              <td> <input type="number" id="cartidQuantity${product.cartItemId}"  placeholder="${product.quantity}"></td>
+              <td><button onclick="editQuantity(${product.cartItemId})" value="Edit">Edit</td>
               <td><button onclick="deletItem(${product.cartItemId})"value="Edit">delet</td>
 
           </tr>`;
@@ -24,13 +24,14 @@ function storeData(productId) {
 getAllprpduct();
 
 async function editQuantity(id) {
-  let url = `https://localhost:7261/api/CartItem/${id}`;
-  var cartItemID = document.getElementById("cartidQuantity");
+  debugger;
+  let url1 = `https://localhost:7261/api/CartItem/${id}`;
+  var cartItemID = document.getElementById(`cartidQuantity${id}`);
   var object = {
     cartItemId: id,
     quantity: cartItemID.value,
   };
-  let request = await fetch(url, {
+  let request = await fetch(url1, {
     method: "PUT",
     body: JSON.stringify(object),
     headers: {
