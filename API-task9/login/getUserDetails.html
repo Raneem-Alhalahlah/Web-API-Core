@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="get" onchange="getData()" name="get">
+<div id="contener"></di>
+    <script>
+    async function getData() {
+       let inputFiled= document.getElementById("get").value;
+    let url=` https://localhost:7261/api/Users/GetUserById/${inputFiled}`;
+let response =await fetch (url);
+let result =await response.json();
+var container =document.getElementById("contener");
+
+
+contener.innerHTML=`<p> id=${result.userId}</p>
+    
+        <p> User Name=${result.username}</p>
+        <p> Email=${result.email}</p>
+    `
+
+    }
+
+
+
+    </script>
+</body>
+</html>
