@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using Web_API__Task2.DTOs;
 using Web_API__Task2.Models;
 
@@ -110,7 +111,7 @@ namespace Web_API__Task2.Controllers
 
 
         [HttpPost("login")]
-        public IActionResult Login(UserDTO userDTO)
+        public IActionResult Login([FromBody]UserDTO userDTO)
         {
             var user = _myDbContext.Users.FirstOrDefault(x => x.Username == userDTO.UserName);
             if (user == null || !PasswordHasherNew.VerifyPasswordHash(userDTO.Password, user.PasswordHash, user.PasswordSalt))
@@ -142,10 +143,34 @@ namespace Web_API__Task2.Controllers
 
             return Ok(user);
 
-
-
-
         }
 
+
+        //problem solving
+
+        [HttpPost("FindSingleRepetition")]
+        public IActionResult FindSingleRepetition([FromBody] List<int> numbers)
+        {
+
+            var singleRepetitions = numbers.GroupBy(n => n)
+                .Where(g => g.Count() % 2 == 1)
+                .Select(g => g.Key)
+                .ToList();
+            return Ok(singleRepetitions);
+
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+  
